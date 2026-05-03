@@ -1,0 +1,54 @@
+{
+  "name": "viewport",
+  "displayName": "ViewPort",
+  "description": "Live device preview for HTML, CSS and JS — see your webpage in real device frames instantly",
+  "version": "0.0.1",
+  "icon": "viewport_logo.png",
+  "engines": {
+    "vscode": "^1.116.0"
+  },
+  "categories": [
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onLanguage:html"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "viewport.start",
+        "title": "Open with ViewPort"
+      },
+      {
+        "command": "viewport.stop",
+        "title": "Stop ViewPort"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "viewport.start",
+          "when": "resourceExtname == .html",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.116.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "eslint": "^9.39.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
