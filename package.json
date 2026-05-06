@@ -2,8 +2,17 @@
   "name": "viewport",
   "displayName": "ViewPort",
   "description": "Live device preview for HTML, CSS and JS — see your webpage in real device frames instantly",
-  "version": "0.0.1",
+  "version": "0.0.6",
+  "publisher": "viewportdev",
+  "bugs": {
+    "url": "https://github.com/meherali86/viewport/issues",
+    "email": "alimeher86@gmail.com"
+  },
   "icon": "viewport_logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meherali86/viewport"
+  },
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -11,7 +20,7 @@
     "Visualization"
   ],
   "activationEvents": [
-    "onLanguage:html"
+    "onStartupFinished"
   ],
   "main": "./extension.js",
   "contributes": {

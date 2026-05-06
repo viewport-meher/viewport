@@ -19,7 +19,7 @@ function activate(context) {
 	let fileWatcher = null;
 
 	function cleanupAll() {
-		clients.forEach((res) => { try { res.end(); } catch (e) {} });
+		clients.forEach((res) => { try { res.end(); } catch (e) { } });
 		clients = [];
 		if (fileWatcher) { fileWatcher.dispose(); fileWatcher = null; }
 		if (server) { server.close(); server = null; }
@@ -75,7 +75,7 @@ function activate(context) {
 		}
 		startServer(serverPort);
 
-		// SSE endpoint — browser yahan connect karega
+		// SSE endpoint - Browser connects here
 		app.get('/viewport-reload', (req, res) => {
 			res.setHeader('Content-Type', 'text/event-stream');
 			res.setHeader('Cache-Control', 'no-cache');
@@ -91,7 +91,7 @@ function activate(context) {
 		fileWatcher = vscode.workspace.onDidSaveTextDocument((doc) => {
 			if (path.dirname(doc.fileName) === folderPath) {
 				clients.forEach((res) => {
-					try { res.write('data: reload\n\n'); } catch (e) {}
+					try { res.write('data: reload\n\n'); } catch (e) { }
 				});
 			}
 		});
@@ -104,7 +104,7 @@ function activate(context) {
 		statusBarItem.text = '$(device-mobile) Go ViewPort';
 		statusBarItem.command = 'viewport.start';
 		statusBarItem.tooltip = 'Open with ViewPort';
-		vscode.window.showInformationMessage('ViewPort band ho gaya!');
+		vscode.window.showInformationMessage('ViewPort disconnected!');
 	});
 
 	context.subscriptions.push(startDisposable);
@@ -189,6 +189,10 @@ function getViewportUI(fileName, port) {
 		'    padding: 16px;',
 		'    flex-shrink: 0;',
 		'  }',
+		'  #sidebar::-webkit-scrollbar { width: 4px; }',
+		'  #sidebar::-webkit-scrollbar-track { background: #1e1e1e; }',
+		'  #sidebar::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }',
+		'  #sidebar::-webkit-scrollbar-thumb:hover { background: #666; }',
 		'  #sidebar h3 {',
 		'    font-size: 11px;',
 		'    text-transform: uppercase;',
@@ -235,8 +239,13 @@ function getViewportUI(fileName, port) {
 		'    </div>',
 		'  </div>',
 		'  <div id="sidebar">',
+		'    <h3>Your Screen</h3>',
+		'    <button class="device-btn active" onclick="setDevice(window.screen.width, window.screen.height, \'desktop\', this)">',
+		'      Your Screen',
+		'      <small id="your-screen-size">Detecting...</small>',
+		'    </button>',
 		'    <h3>Android — Samsung</h3>',
-		'    <button class="device-btn active" onclick="setDevice(360, 780, \'mobile\', this)">',
+		'    <button class="device-btn" onclick="setDevice(360, 780, \'mobile\', this)">',
 		'      Samsung Galaxy S25',
 		'      <small>360x780 @3.0</small>',
 		'    </button>',
@@ -252,18 +261,22 @@ function getViewportUI(fileName, port) {
 		'      Samsung Galaxy Note 20 Ultra',
 		'      <small>412x883 @3.5</small>',
 		'    </button>',
-		'    <h3>Android — Google Pixel</h3>',
-		'    <button class="device-btn" onclick="setDevice(412, 915, \'mobile\', this)">',
-		'      Google Pixel 9 Pro',
-		'      <small>412x915 @2.625</small>',
+		'    <h3>Android — Google Pixel & Nexus</h3>',
+		'    <button class="device-btn" onclick="setDevice(412, 732, \'mobile\', this)">',
+		'      Google Pixel 6a',
+		'      <small>412x732 @2.625</small>',
 		'    </button>',
 		'    <button class="device-btn" onclick="setDevice(412, 915, \'mobile\', this)">',
 		'      Google Pixel 8',
 		'      <small>412x915 @2.625</small>',
 		'    </button>',
-		'    <button class="device-btn" onclick="setDevice(412, 915, \'mobile\', this)">',
-		'      Google Pixel 6a',
-		'      <small>412x915 @2.625</small>',
+		'    <button class="device-btn" onclick="setDevice(448, 998, \'mobile\', this)">',
+		'      Google Pixel 8 Pro',
+		'      <small>448x998 @3.0</small>',
+		'    </button>',
+		'    <button class="device-btn" onclick="setDevice(360, 640, \'mobile\', this)">',
+		'      Nexus 5',
+		'      <small>360x640 @3.0</small>',
 		'    </button>',
 		'    <h3>Android — Others</h3>',
 		'    <button class="device-btn" onclick="setDevice(412, 919, \'mobile\', this)">',
@@ -273,14 +286,6 @@ function getViewportUI(fileName, port) {
 		'    <button class="device-btn" onclick="setDevice(384, 854, \'mobile\', this)">',
 		'      Sony Xperia 1 II',
 		'      <small>384x854 @3.5</small>',
-		'    </button>',
-		'    <button class="device-btn" onclick="setDevice(360, 640, \'mobile\', this)">',
-		'      Nexus 5',
-		'      <small>360x640 @3.0</small>',
-		'    </button>',
-		'    <button class="device-btn" onclick="setDevice(412, 732, \'mobile\', this)">',
-		'      Nexus 6P',
-		'      <small>412x732 @3.5</small>',
 		'    </button>',
 		'    <h3>iPhone</h3>',
 		'    <button class="device-btn" onclick="setDevice(402, 874, \'mobile\', this)">',
@@ -389,7 +394,10 @@ function getViewportUI(fileName, port) {
 		'    frame.style.transform = "scale(" + scale + ")";',
 		'    frame.style.transformOrigin = "center center";',
 		'  }',
-		'  setDevice(360, 780, "mobile", document.querySelector(".device-btn.active"));',
+		'  var yourScreenBtn = document.querySelector(".device-btn.active");',
+		'  var screenLabel = document.getElementById("your-screen-size");',
+		'  if (screenLabel) screenLabel.textContent = window.screen.width + "x" + window.screen.height;',
+		'  setDevice(window.screen.width, window.screen.height, "desktop", yourScreenBtn);',
 		'  var evtSource = new EventSource("http://localhost:' + port + '/viewport-reload");',
 		'  evtSource.onmessage = function(e) {',
 		'    if (e.data === "reload") {',
