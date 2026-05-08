@@ -108,4 +108,4 @@ If this tool saves you time, prevents headaches during responsive testing, or ma
 
 (You can also sponsor the project via GitHub Sponsors)
 
-Your support helps me keep the extension updated with the latest device frames and bug fixes. ❤️
+Your support helps me keep the extension updated with the latest device frames and bug fixes. ❤️port
