@@ -2,7 +2,7 @@
   "name": "viewport",
   "displayName": "ViewPort - Responsive Web Preview",
   "description": "Live responsive device preview with auto-reload, real CSS dimensions, and offline support for web developers.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publisher": "viewportdev",
   "bugs": {
     "url": "https://github.com/viewport-meher/viewport/issues",
