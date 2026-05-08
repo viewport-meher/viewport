@@ -22,7 +22,7 @@ Many responsive testing tools launch entirely separate Chromium instances, heavy
 * **Right-Click Support:** Simply right-click any HTML file in your editor and select **Open with ViewPort** to launch instantly.
 
 ### ⚡ Lightning Fast Live Reload
-* **Powered by SSE:** Uses Server-Sent Events (no heavy polling).
+* **Powered by SSE:** Uses Server-Sent Events (no heavy polling) to detect file changes.
 * **Zero Flickering:** Save any file in your project folder and the browser updates instantly. It only reloads on actual file saves, preserving your scroll state and workflow.
 
 ### 🎯 True 1:1 Device Testing
@@ -31,7 +31,7 @@ Many responsive testing tools launch entirely separate Chromium instances, heavy
 * **Native Frame Styling:** Mobile and tablet views feature rounded bezels, while Desktop/MacBook views mimic a laptop-style frame with realistic borders.
 
 ### 🔒 100% Offline, Private & Optimized
-* **No Internet Needed:** Runs entirely on `localhost`. No data is ever sent out. No tracking, no analytics.
+* **No Internet Needed:** Runs entirely on `localhost`. No data is ever sent out.
 * **Deep RAM Cleanup:** We respect your machine's memory. The `cleanupAll()` function rigorously disposes of all resources on stop—SSE clients are closed, file watchers are disposed, and the Express server is completely shut down.
 * **Dynamic Port Handling:** Defaults to port `3579`. If it's busy, ViewPort recursively scans and binds to the next available port automatically.
 
@@ -69,7 +69,6 @@ ViewPort is intentionally built to be ultra-lightweight.
 **Package Footprint:**
 * `extension.js`: ~14 KB
 * `package.json`: ~1.4 KB
-* `viewport_logo.png`: ~95 KB
 * `node_modules/`: ~2.6 MB
 * **Total `.vsix` Size:** ~1.09 MB
 
@@ -91,21 +90,25 @@ ViewPort UI loads with dark-themed, 4px thin scrollbars
 iframe serves the HTML file 
        ↓
 User saves file → SSE sends reload signal → iframe reloads instantly
+```
 
+## 📦 Installation
 
-📋 Commands & Activation
-viewport.start: Starts ViewPort / Open with ViewPort
+Search for **"ViewPort"** in the VS Code Extensions Marketplace or install it directly via the [Official Marketplace Link](https://marketplace.visualstudio.com/items?itemName=viewportdev.viewport).
 
-viewport.stop: Stops the ViewPort server and runs memory cleanup.
+## 📋 Commands & Activation
+* `viewport.start`: Starts ViewPort / Open with ViewPort
+* `viewport.stop`: Stops the ViewPort server and runs memory cleanup.
 
-Note: The extension activates smoothly on onStartupFinished, ensuring the status bar button is ready without delaying your editor's boot time.
+*Note: The extension activates smoothly on `onStartupFinished`, ensuring the status bar button is ready without delaying your editor's boot time.*
 
-☕ Support the Project
+## 🛡️ Privacy First
+
+We believe in 100% privacy:
+* **Zero Tracking:** We don't collect your code or usage data.
+* **Client-Side Processing:** Everything runs locally on your machine.
+
+## ☕ Support the Project
 ViewPort is completely open-source and free to use. It was built to solve a genuine frustration for web developers.
 
-If this tool saves you time, prevents headaches during responsive testing, or makes your workflow smoother, consider supporting its development!
-
-
-(You can also sponsor the project via GitHub Sponsors)
-
-Your support helps me keep the extension updated with the latest device frames and bug fixes. ❤️port
+If this tool saves you time, prevents headaches during responsive testing, or makes your workflow smoother, consider supporting its development! ❤️
