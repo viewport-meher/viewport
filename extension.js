@@ -179,7 +179,7 @@ function getViewportUI(fileName, port) {
 		'  #device-screen {',
 		'    border-radius: 20px;',
 		'    overflow: hidden;',
-		'    background: #000;',   // <--- FIXED!
+		'    background: #fff;',
 		'  }',
 		'  #device-frame.desktop-frame #device-screen {',
 		'    border-radius: 4px;',

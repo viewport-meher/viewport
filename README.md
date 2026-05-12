@@ -17,6 +17,14 @@ Many responsive testing tools launch entirely separate Chromium instances, heavy
 * **Tiny Package Size:** At just ~1 MB, it installs in seconds and takes up virtually no disk space.
 * **Aggressive Garbage Collection:** The moment you click `viewport.stop`, our `cleanupAll()` routine instantly kills the Express server, terminates SSE connections, drops file watchers, and frees up your RAM completely. No ghost processes left behind.
 
+### 🔥 The Ultimate Vanilla Web & Static Template Engine
+ViewPort is engineered specifically for runtime web development. If you build with pure HTML, CSS, JS, or CSS frameworks, this tool is your holy grail.
+
+* **Handles Heavy Templates:** Effortlessly renders complex, heavily-styled static sites and templates like **HTML5 UP** and **Start Bootstrap** smoothly.
+* **Framework Friendly:** Works flawlessly with utility frameworks like **Tailwind CSS**, **Bootstrap**, and external JS libraries.
+* **Zero-Config Entry:** Just right-click any `.html` file (even in sub-directories) and start.
+* **Honest Limitation:** ViewPort is designed for runtime execution. It requires an `.html` file and does not currently support build-step frameworks like React, Next.js, or Astro.
+
 ### 🚀 Instant Launch & Controls
 * **Status Bar Button:** A `Go ViewPort` button sits quietly in your bottom status bar. Click it to launch. When running, it displays `ViewPort: filename.html`. Click again to stop.
 * **Right-Click Support:** Simply right-click any HTML file in your editor and select **Open with ViewPort** to launch instantly.
